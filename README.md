@@ -14,3 +14,5 @@
 - auth error handling depending on BE responses
 
 ## React Protected Routes | Role-Based Auth | React Router V6
+
+- Role Based User Permission (User,Admin,Editor..) for protected routes with React Router Dom V6
