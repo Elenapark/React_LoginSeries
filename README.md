@@ -12,3 +12,7 @@
 - connect auth api with nodejs backend
 - control auth state using Context API (accessToken,roles,user,pwd getting from BE responses)
 - auth error handling depending on BE responses
+
+## React Protected Routes | Role-Based Auth | React Router V6
+
+- Role Based User Permission (User,Admin,Editor..) for protected routes with React Router Dom V6
