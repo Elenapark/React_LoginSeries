@@ -22,11 +22,11 @@ const useAxiosPrivate = () => {
 
     const responseIntercept = axiosPrivate.interceptors.response.use(
       (response) => {
-        console.log("응답인터셉터 성공:", response);
+        console.log("axios성공:", response);
         return response;
       },
       async (error) => {
-        console.log("응답인터셉터 실패:", error);
+        console.log("axios실패:", error);
         const prevReq = error?.config;
         // if req failed due to an expired access token - returns 403 forbidden
         // 기존 access Token이 만료되어 refresh api호출을 통해 새로운 access token을 받아오는 작업 추가
@@ -37,7 +37,8 @@ const useAxiosPrivate = () => {
 
           const newAccessToken = await refresh();
           prevReq.headers["Authorization"] = `Bearer ${newAccessToken}`;
-          return axiosPrivate(prevReq);
+
+          return axiosPrivate(prevReq); // 새로운 액세스 토큰 발급 후 실패한 기존 요청을 다시 재호출
         }
         return Promise.reject(error);
       }
