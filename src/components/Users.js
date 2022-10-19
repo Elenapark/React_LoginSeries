@@ -1,8 +1,14 @@
 import { useState, useEffect } from "react";
-import axios from "../api/axios";
+import { useLocation, useNavigate } from "react-router";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 const Users = () => {
   const [users, setUsers] = useState();
+  const axiosPrivate = useAxiosPrivate(); // interceptor가 추가된 axios
+
+  // 마지막으로, 만약 refresh token이 만료되었을 경우에는?
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     let isMounted = true;
@@ -10,13 +16,17 @@ const Users = () => {
     const controller = new AbortController();
     const getUsers = async () => {
       try {
-        const response = await axios.get("/users", {
+        const response = await axiosPrivate.get("/users", {
           signal: controller.signal,
         });
         console.log("/users응답", response.data);
         isMounted && setUsers(response.data);
       } catch (err) {
-        console.error(err);
+        console.log(err);
+        if (err?.message !== "canceled") {
+          // refresh token이 만료되는 경우 - 로그인 시킨 후 기존 location으로 이동
+          navigate("/login", { state: { from: location }, replace: true });
+        }
       }
     };
     getUsers();

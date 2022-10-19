@@ -25,3 +25,11 @@
   - attach JWT tokens with request
   - retry once when 403 forbidden error returns due to expiration of previously given access token
   - clean up(eject) axios interceptors when unmounts otherwise they can pile on
+- call refresh api once when previously given access token expires, but redirect to login page when even refresh token expires
+
+## React Persistent User Login Authentication with JWT Tokens
+
+- user loses their status (access token) when refresh because app stores access token only in memory
+- but it's strongly recommended not to store access token in the local storage where someone else can grab it with JS
+- thanks to persistent login, app will maintain user's access status regardless of refresh, but it's not secure either
+- if security of app is essential, we live with having to log back in on every refresh.
