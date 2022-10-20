@@ -10,6 +10,8 @@ const PersistLogin = () => {
   const { auth, persist } = useAuth();
 
   useEffect(() => {
+    let isMounted = true;
+
     const verifyRefreshToken = async () => {
       try {
         await refresh(); // 리턴값 없이 새로운 access token을 전역에 저장하기만 함
@@ -17,11 +19,13 @@ const PersistLogin = () => {
         console.error(err);
       } finally {
         // it always runs
-        setIsLoading(false);
+        isMounted && setIsLoading(false);
       }
     };
     // accessToken이 없는 경우에만 호출
     !auth?.accessToken ? verifyRefreshToken() : setIsLoading(false);
+
+    return () => (isMounted = false);
   }, []);
 
   useEffect(() => {
