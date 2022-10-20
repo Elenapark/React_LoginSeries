@@ -31,5 +31,8 @@
 
 - user loses their status (access token) when refresh because app stores access token only in memory
 - but it's strongly recommended not to store access token in the local storage where someone else can grab it with JS
-- thanks to persistent login, app will maintain user's access status regardless of refresh, but it's not secure either
+- thanks to persistent login, app will maintain user's access status regardless of refresh, but it's not secure either.
 - if security of app is essential, we live with having to log back in on every refresh.
+- when user forget to sign out in public, user can be exposed to hacking.
+- to solve this security issue, make checkbox for user to check whethey they trust device or not.
+- fix memory leak when trying to set state to an unmounted component
