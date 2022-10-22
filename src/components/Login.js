@@ -45,8 +45,7 @@ const Login = () => {
       );
       console.log("/auth응답", response.data);
       const accessToken = response?.data?.accessToken;
-      const roles = response?.data?.roles;
-      setAuth({ user, roles, accessToken });
+      setAuth({ user, accessToken });
       resetUser();
       setPwd("");
       // 기존에 가고자 했던 페이지로 redirect

@@ -33,7 +33,7 @@
 - but it's strongly recommended not to store access token in the local storage where someone else can grab it with JS
 - thanks to persistent login, app will maintain user's access status regardless of refresh, but it's not secure either.
 - if security of app is essential, we live with having to log back in on every refresh.
-- when user forget to sign out in public, user can be exposed to hacking.
+- if user forget to sign out in public, user can be exposed to hacking.
 - to solve this security issue, make checkbox for user to check whethey they trust device or not.
 - fix memory leak when trying to set state to an unmounted component
 
@@ -43,3 +43,11 @@
   - useLocalStorage : to store username and persist data in localStorage
   - useInput : substitute of username input
   - useToggle : to toggle checkbox
+
+## Best Practices for React Data Security, Logins, Passwords, JWTs
+
+- in the previous tutorials, stored all login auth data in state, and logged it to the console and user data is being exposed by react devtools... => it's not good when production mode.
+  - disable react devtools when in production mode using npm packages
+  - remove unnecessariliy stored state and hide sesitive data from the context
+  - encrypt all stored passwords (already did in NodeJS Courses)
+  - keep data in the JWT and decode it using jwt-decode from frontend side using npm packages : previously backend was sending user roles data in JWT tokens and in json response as well. but what if frontend can decode user data directly from JWT token? there is no need to send and receive user roles through json response at all.
