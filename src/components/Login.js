@@ -3,6 +3,7 @@ import axios from "../api/axios";
 import useAuth from "../hooks/useAuth";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import useLocalStorage from "../hooks/useLocalStorage";
+import useInput from "../hooks/useInput";
 
 const LOGIN_URL = "/auth";
 
@@ -16,7 +17,8 @@ const Login = () => {
   const userRef = useRef();
   const errRef = useRef();
 
-  const [user, setUser] = useLocalStorage("user", ""); // useState("");
+  // const [user, setUser] = useLocalStorage("user", "");
+  const [user, resetUser, userAttribs] = useInput("user", "");
   const [pwd, setPwd] = useState("");
   const [errMsg, setErrMsg] = useState("");
 
@@ -44,7 +46,7 @@ const Login = () => {
       const accessToken = response?.data?.accessToken;
       const roles = response?.data?.roles;
       setAuth({ user, pwd, roles, accessToken });
-      setUser("");
+      resetUser();
       setPwd("");
       // 기존에 가고자 했던 페이지로 redirect
       navigate(from, { replace: true });
@@ -91,8 +93,9 @@ const Login = () => {
           ref={userRef}
           autoComplete="off"
           // controlled input
-          onChange={(e) => setUser(e.target.value)}
-          value={user}
+          // onChange={(e) => setUser(e.target.value)}
+          // value={user}
+          {...userAttribs}
           required
           // aria label no needed!
         />
