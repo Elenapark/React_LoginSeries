@@ -36,3 +36,10 @@
 - when user forget to sign out in public, user can be exposed to hacking.
 - to solve this security issue, make checkbox for user to check whethey they trust device or not.
 - fix memory leak when trying to set state to an unmounted component
+
+## React Login Input Hooks for User Form Data
+
+- add custom hooks for react login form that we can reuse in the future
+  - useLocalStorage : to store username and persist data in localStorage
+  - useInput : substitute of username input
+  - useToggle : to toggle checkbox
